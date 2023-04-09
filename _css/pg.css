@@ -1,0 +1,64 @@
+html,body{
+    background-image: url('../_images/fundo.jpg');
+    
+}
+
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.logo{
+    width:100px;
+}
+
+/*CARDS*/
+
+.card-title, .card-text{
+    text-align: center;
+}
+
+.cards-intro{
+    margin-top: 20px;
+}
+
+.card-title{
+    font-weight: bold;
+    font-size: 40px;
+    color: #fff;
+}
+
+.card-text{   
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.card{
+    background: linear-gradient(0deg, rgba(20,182,254,1) 0%, rgba(89,184,233,1) 100%);
+    border:0px;
+}
+
+/*grafico*/
+.grafico{
+    margin-top: 20px;
+   
+    
+}
+
+#chartdiv {
+    width: 100%;
+    height: 500px;
+  }
+
+
+.form-produto{
+
+    background: #fff;
+    margin-top: 20px;
+    padding:20px;
+    border-radius: 20px;
+
+}
+

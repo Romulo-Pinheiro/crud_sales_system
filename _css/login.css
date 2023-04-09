@@ -1,0 +1,40 @@
+html,body{
+    height: 100%;   
+    background-image: url(https://i0.wp.com/www.chelseafcbrasil.com/wp-content/uploads/2021/07/Background.png?fit=1920%2C1080&ssl=1);
+}
+
+body{
+    display:flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.form-signin{
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+    background-color: #ffffff;
+}
+
+.form-signin input[type="email"]{
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-bottom: -1px;
+}
+
+.form-signin input[type="password"]{
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-bottom: -1px;
+}
+
+.form-signin .form-control{
+    position:relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
