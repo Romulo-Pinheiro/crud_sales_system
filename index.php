@@ -1,6 +1,8 @@
 <?php
-  include "_scripts/login.php";
+include "_scripts/conexao.php";
+include "_scripts/functions.php";
 ?>
+
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -11,6 +13,8 @@
     <title>Sistema de Almoxarifado</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="_css/login.css" type="text/css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body class="text-center" method="POST">
     <form action="" class="form-signin" method="POST">
@@ -24,9 +28,56 @@
         <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha" required><br>
 
         <button class="btn btn-lg btn-primary" type="submit">Login</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+        <br><br><a class="h6" href="">Não possui acesso? Registre-se!</a>
+        <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
+
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 
 </html>
+
+<?php
+if(isset($_POST['email']) || isset($_POST['senha'])){
+  
+  if (login($_POST['email'], $_POST['senha']) === 0){ ?>
+    <script language='javascript'>
+          swal.fire({ 
+          icon:"error",
+          text: "Preencha seu e-mail",
+          type: "success"}).then(okay => {
+          if (okay) {
+          }
+        });
+      </script>
+  <?php
+  }
+  elseif (login($_POST['email'], $_POST['senha']) === 1){ ?>
+    <script language='javascript'>
+          swal.fire({ 
+          icon:"error",
+          text: "Preencha sua senha",
+          type: "success"}).then(okay => {
+          if (okay) {
+          }
+        });
+      </script>
+
+  <?php 
+  }
+  elseif (login($_POST['email'], $_POST['senha']) === 2){
+    header("location: ./inicio.php");
+  }
+  elseif (login($_POST['email'], $_POST['senha']) === 3){ ?>
+    <script language='javascript'>
+          swal.fire({ 
+          icon:"error",
+          text: "Falha ao logar! E-mail ou senha incorreto.",
+          type: "success"}).then(okay => {
+          if (okay) {
+          }
+        });
+      </script>
+  <?php 
+  }}
+?>

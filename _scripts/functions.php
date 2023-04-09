@@ -1,4 +1,46 @@
 <?php
+    function login($input_email, $input_senha){
+        include "_scripts/conexao.php";
+
+         // Verifica se o campo email e o campo senha foram preenchidos
+         if(strlen($input_email) == 0){
+
+            // Se o email não foi preenchido, retorna 0
+            return 0;
+        } elseif(strlen($input_senha) == 0){
+            // Se a senha não foi preenchida, retorna 1
+            return 1;
+        } else{
+            // Previne falhas de segurança como SQL Injection
+            $input_email = $mysqli->real_escape_string($input_email);
+            $input_senha = $mysqli->real_escape_string($input_senha);
+            
+            // Procura no banco de dados o usuário com e-mail e senha iguais aos recebidos
+            $sql_code = "SELECT * FROM usuarios WHERE email = '$input_email' AND senha = '$input_senha'";
+            $sql_query = $mysqli->query($sql_code) or die("Falha na execução da busca SQL: ".$mysqli->error);
+            $quantidade = $sql_query->num_rows;
+            
+            // Caso encontre, a quantidade encontrada será 1
+            if($quantidade == 1){
+                $usuario = $sql_query->fetch_assoc();
+                if(!isset($_SESSION)){
+                    session_start();
+                }
+                // Guarda a id, o nome e o cargo do usário em SESSIONs
+                $_SESSION['id'] = $usuario['id'];
+                $_SESSION['nome'] = $usuario['nome'];
+                $_SESSION['cargo'] = $usuario['cargo'];
+                
+                // Se o usuário for encontrado, retorna 2 para que seja direcionado à tela
+                return 2;
+
+            }else{
+                // Se o usuário não for encontrado, retorna 3
+                return 3;
+            }
+        }
+    }
+
     function cadastrarProduto($dados){
         include "_scripts/conexao.php";
         include "_scripts/session.php";
