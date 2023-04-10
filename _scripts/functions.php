@@ -41,6 +41,36 @@
         }
     }
 
+    function cadastroUsuario($input_nome, $input_email, $input_senha, $input_confirm_senha, $input_cargo){
+        include "_scripts/conexao.php";
+
+        // Verifica se algum input foi vazio
+        if(strlen($input_email) == 0 or strlen($input_email) == 0 or strlen($input_senha) == 0 or strlen($input_confirm_senha) == 0 or empty($input_cargo)){
+            return 0;
+        }
+
+        // Se nenhum input foi vazio, verifica se a senha inserida foi igual à confirmada
+        elseif ($input_senha != $input_confirm_senha){
+            return 1;
+        }
+        else{
+            // Seleciona os usuários para verificar se algum possui o email a cadastrar
+            $sql_code = "SELECT * FROM usuarios WHERE email = '$input_email'";
+            $sql_query = $mysqli->query($sql_code) or die("Falha na execução da busca SQL: ".$mysqli->error);
+            $encontrados = $sql_query->num_rows;
+            
+            if ($encontrados == 0){
+                // Se não encontrou nenhum, cadastra o usuário
+                $sql = "INSERT INTO usuarios (nome,email,senha,cargo) VALUES ('$input_nome','$input_email','$input_senha','$input_cargo')";
+                $query = $mysqli->query($sql);
+                return 2;
+            }else{
+                // Se encontrou, não cadastra o usuário
+                return 3;
+            }
+        }
+    }
+
     function cadastrarProduto($dados){
         include "_scripts/conexao.php";
         include "_scripts/session.php";

@@ -54,7 +54,3 @@ function getDados() {
     };
     xmlreq.send(null);
 }
-
-function atualizaSelect(){
-   
-  }

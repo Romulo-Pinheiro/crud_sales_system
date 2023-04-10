@@ -28,7 +28,7 @@ include "_scripts/functions.php";
         <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha" required><br>
 
         <button class="btn btn-lg btn-primary" type="submit">Login</button>
-        <br><br><a class="h6" href="">Não possui acesso? Registre-se!</a>
+        <br><br><a class="h6" href="cadastro-usuario.php">Não possui acesso? Registre-se!</a>
         <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
 
     </form>
@@ -39,9 +39,10 @@ include "_scripts/functions.php";
 
 <?php
 if(isset($_POST['email']) || isset($_POST['senha'])){
-  
-  if (login($_POST['email'], $_POST['senha']) === 0){ ?>
-    <script language='javascript'>
+  $login = login($_POST['email'], $_POST['senha']);
+  switch($login){
+    case 0: ?>
+      <script language='javascript'>
           swal.fire({ 
           icon:"error",
           text: "Preencha seu e-mail",
@@ -50,10 +51,10 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
           }
         });
       </script>
-  <?php
-  }
-  elseif (login($_POST['email'], $_POST['senha']) === 1){ ?>
-    <script language='javascript'>
+    <?php
+    break;
+    case 1: ?>
+      <script language='javascript'>
           swal.fire({ 
           icon:"error",
           text: "Preencha sua senha",
@@ -62,14 +63,14 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
           }
         });
       </script>
-
-  <?php 
-  }
-  elseif (login($_POST['email'], $_POST['senha']) === 2){
-    header("location: ./inicio.php");
-  }
-  elseif (login($_POST['email'], $_POST['senha']) === 3){ ?>
-    <script language='javascript'>
+    <?php
+    break;
+    case 2:
+      header("location: ./inicio.php");
+      break;
+    
+    case 3: ?>
+      <script language='javascript'>
           swal.fire({ 
           icon:"error",
           text: "Falha ao logar! E-mail ou senha incorreto.",
@@ -78,6 +79,8 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
           }
         });
       </script>
-  <?php 
-  }}
+    <?php
+    break;
+  }
+}
 ?>
